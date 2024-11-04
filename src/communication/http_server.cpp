@@ -18,17 +18,18 @@ void HTTPServer::run() {
         read(fd_new_socket, buffer.data(), buffer.size());
 
         std::string request = buffer.data();
-        std::cout << "Recieved request:\n" << request << "\n";
+        std::cout << "###Recieved request:###\n\n" << request << "\n";
 
+        std::cout << "###Responding with:###\n\n";
         auto response = process_request(request);
         if (response.has_value()) {
             write(fd_new_socket, response.value().c_str(),
                   response.value().length());
-            std::cout << response.value() << "\n";
+            std::cout << response.value().substr(0, 500) << "\n.\n.\n.\n";
         } else {
             write(fd_new_socket, not_found_response.c_str(),
                   not_found_response.length());
-            std::cout << not_found_response << "\n";
+            std::cout << response.value().substr(0, 500) << "\n.\n.\n.\n";
         }
 
         std::cout << "\n---- Response sent ----\n\n";
@@ -58,18 +59,20 @@ std::string HTTPServer::read_file(std::string_view path) {
 std::optional<std::string>
 HTTPServer::process_request(std::string_view request) {
     if (request.substr(0, 4) != "GET ") {
-        return std::nullopt;
+        return std::nullopt; // 'GET' not in the beginning of the request
     }
 
     // Find the index of the first space after "GET "
     size_t space_index = request.find(' ', 4);
     if (space_index == std::string::npos) {
-        return std::nullopt; // No space found
+        return std::nullopt; // No space found after 'GET'
     }
 
     std::string path{};
     path = request.substr(4, space_index - 4);
 
+    // TODO: method that serves http headers to reduce code repetition and
+    // future scalabity
     if (path == "/index.html" || path == "/") {
         std::string response = read_file("index.html");
         return "HTTP/1.1 200 OK\r\n"
