@@ -1,6 +1,7 @@
 #include "client.h"
 #include <arpa/inet.h>
 
+//Simple client side tcp to test if server is working without browser
 int main() {
     int interface{};
     // Convert localhost address to binary

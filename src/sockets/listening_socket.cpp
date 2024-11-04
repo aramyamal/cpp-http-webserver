@@ -2,8 +2,6 @@
 
 namespace web {
 
-// TODO: ConnectingSocket for client side connection
-
 ListeningSocket::ListeningSocket(int domain, int type, int protocol, int port,
                                  uint32_t interface, int backlog)
     : Socket(domain, type, protocol, port, interface), m_backlog{backlog} {

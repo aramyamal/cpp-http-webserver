@@ -8,7 +8,9 @@ namespace web {
 class ListeningSocket : public Socket {
   public:
     ListeningSocket(int domain, int type, int protocol, int port,
-                    uint32_t interface, int backlog);
+                    uint32_t interface, int backlog); //backlog refers to
+    // maximum number of queued incoming connections that a socket can have 
+    // before new connections are rejected
 
     ~ListeningSocket() override = default;
 

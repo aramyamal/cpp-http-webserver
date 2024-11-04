@@ -13,8 +13,6 @@ class ConnectingSocket : public Socket {
 
     ~ConnectingSocket() override = default;
 
-    // void input_interface
-
     void send_message(std::string message) {
         send(fd_socket, message.c_str(), message.length(), 0);
     }
