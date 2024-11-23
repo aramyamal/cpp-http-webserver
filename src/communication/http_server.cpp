@@ -29,7 +29,7 @@ void HTTPServer::run() {
         } else {
             write(fd_new_socket, not_found_response.c_str(),
                   not_found_response.length());
-            std::cout << response.value().substr(0, 500) << "\n.\n.\n.\n";
+            std::cout << "###Sent 404 error###\n";
         }
 
         std::cout << "\n---- Response sent ----\n\n";
