@@ -18,11 +18,11 @@ target_include_directories(communication
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-add_executable(test_run_client
+add_executable(test-client
     test_run_client.cpp
 )
 
-target_link_libraries(test_run_client
+target_link_libraries(test-client
   PRIVATE
     communication
     sockets
