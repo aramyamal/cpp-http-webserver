@@ -15,7 +15,7 @@ cd build
 cmake ..
 make
 ```
-The resulting executabled are then in ```build/bin/``` and are:
+The resulting executables are then in ```build/bin/``` and are:
 ```
 cpp-http-webserver*
 test-client*
@@ -44,6 +44,6 @@ The ```test-client``` executable allows you to connect to any adress and port an
 ```test-client <address> <port> <message>```
 - ```address```: The address the client should connect to (e.g., ```127.0.0.1```, ```1.1.1.1```)
 - ```port```: The port number the client should connect to (e.g., ```8080```).
-- ```message```: The message that should be sent to the given address and port if connection is estabished (e.g. ```"GET /index.html HTTP/1.1"```).
+- ```message```: The message that should be sent to the given address and port if connection is established (e.g. ```"GET /index.html HTTP/1.1"```).
 
-The cient then outputs the response it recieves back from the server it connected to.
+The client then outputs the response it recieves back from the server it connected to.
