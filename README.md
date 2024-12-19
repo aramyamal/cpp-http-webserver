@@ -22,9 +22,9 @@ test-client*
 ```
 
 ### Running the server
-The ```cpp-http-webserver``` executable requires two parameters:
+The ```cpp-http-webserver*``` executable requires two parameters:
 
-```cpp-http-webserver* <port> <backlog>```
+```./cpp-http-webserver <port> <backlog>```
 - ```port```: The port number the server will bind to and listen for incoming connections (e.g., ```8080```).
 - ```backlog```: The maximum number of pending connections the server will queue before refusing new ones (e.g. ```10```).
 
@@ -39,9 +39,9 @@ You can then connect to the server through ```http://localhost:<port>```.
 ### Using the test client
 The ```test-client``` executable allows you to connect to any adress and port and send it a request, then display the subsequent response. This can be used to test wether or not the webserver is working. 
 
-```test-client``` requires three parameters:
+```test-client*``` requires three parameters:
 
-```test-client <address> <port> <message>```
+```./test-client <address> <port> <message>```
 - ```address```: The address the client should connect to (e.g., ```127.0.0.1```, ```1.1.1.1```)
 - ```port```: The port number the client should connect to (e.g., ```8080```).
 - ```message```: The message that should be sent to the given address and port if connection is established (e.g. ```"GET /index.html HTTP/1.1"```).
