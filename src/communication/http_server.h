@@ -16,14 +16,17 @@ class HTTPServer : public Server {
     void run(); // parent class has run(std::string response), potentially fix
 
   private:
-    std::string read_file(std::string_view path);
+    std::optional<std::string> read_file(std::string_view path);
     std::optional<std::string> process_request(std::string_view request);
-    std::string not_found_html = read_file("error_404.html");
+    std::optional<std::string> serve_http_response(std::string_view endpoint);
+    std::string get_content_type(std::string &file_extension);
+    std::string not_found_html = read_file("error_404.html").value();
     std::string not_found_response =
         "HTTP/1.1 404 Not Found\r\n"
         "Content-Type: text/html; charset=UTF-8\r\n"
         "Content-Length: " +
-        std::to_string(not_found_html.length()) + "\r\n"
+        std::to_string(not_found_html.length()) +
+        "\r\n"
         "\r\n" +
         not_found_html;
 };

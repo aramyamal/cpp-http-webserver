@@ -1,6 +1,9 @@
 #include "http_server.h"
+#include <algorithm>
 #include <array>
+#include <filesystem>
 #include <fstream>
+#include <unordered_map>
 
 namespace web {
 
@@ -38,11 +41,11 @@ void HTTPServer::run() {
     }
 }
 
-std::string HTTPServer::read_file(std::string_view path) {
+std::optional<std::string> HTTPServer::read_file(std::string_view path) {
     std::ifstream file(path.data(), std::ios::ate); // ate moves pointer to end
 
     if (!file.is_open()) {
-        return ""; // fix this to throw exception
+        return std::nullopt; // no file found
     }
 
     // Get filesize
@@ -68,48 +71,72 @@ HTTPServer::process_request(std::string_view request) {
         return std::nullopt; // No space found after 'GET'
     }
 
-    std::string path{};
-    path = request.substr(4, space_index - 4);
+    std::string endpoint{};
+    endpoint = request.substr(4, space_index - 4);
 
-    // TODO: method that serves http headers to reduce code repetition and
-    // future scalabity
-    if (path == "/index.html" || path == "/") {
-        std::string response = read_file("index.html");
-        return "HTTP/1.1 200 OK\r\n"
-               "Content-Type: text/html; charset=UTF-8\r\n"
-               "Content-Length: " +
-               std::to_string(response.length()) +
-               "\r\n"
-               "Connection: keep-alive\r\n"
-               "Server: cpp-webserver\r\n"
-               "\r\n" +
-               response;
+    return serve_http_response(endpoint);
+}
 
-    } else if (path == "/style.css") {
-        std::string response = read_file("style.css");
-        return "HTTP/1.1 200 OK\r\n"
-               "Content-Type: text/css; charset=UTF-8\r\n"
-               "Content-Length: " +
-               std::to_string(response.length()) +
-               "\r\n"
-               "Connection: keep-alive\r\n"
-               "Server: cpp-webserver\r\n"
-               "\r\n" +
-               response;
+std::string HTTPServer::get_content_type(std::string &file_extension) {
+    static const std::unordered_map<std::string, std::string> mime_types{
+        {"html", "text/html; charset=UTF-8"},
+        {"htm", "text/html; charset=UTF-8"},
+        {"css", "text/css; charset=UTF-8"},
+        {"js", "application/javascript; charset=UTF-8"},
+        {"json", "application/json; charset=UTF-8"},
+        {"txt", "text/plain; charset=UTF-8"},
+        {"png", "image/png"},
+        {"jpg", "image/jpeg"},
+        {"jpeg", "image/jpeg"},
+        {"gif", "image/gif"},
+        {"svg", "image/svg+xml"},
+        {"ico", "image/x-icon"},
+        {"pdf", "application/pdf"}
+        // TODO: add more 
+    };
 
-    } else if (path == "/favicon.ico") {
-        std::string response = read_file("favicon.ico");
-        return "HTTP/1.1 200 OK\r\n"
-               "Content-Type: image/x-icon\r\n"
-               "Content-Length: " +
-               std::to_string(response.length()) +
-               "\r\n"
-               "Cache-Control: public, max-age=86400\r\n"
-               "\r\n" +
-               response;
-    } else {
-        return std::nullopt;
+    // transform to lower case
+    std::ranges::transform(file_extension, file_extension.begin(),
+                           [](unsigned char c) { return std::tolower(c); });
+
+    auto mime_it = mime_types.find(file_extension);
+    return mime_it != mime_types.end() ? mime_it->second
+                                       : "application/octet-stream";
+}
+
+std::optional<std::string>
+HTTPServer::serve_http_response(std::string_view endpoint) {
+    if (endpoint == "/") {
+        endpoint = "/index.html";
     }
+    endpoint.remove_prefix(1);
+
+    std::filesystem::path file_path(endpoint);
+    std::string extension{};
+    std::optional<std::string> file_content{};
+
+    if (!file_path.has_extension()) {
+        extension = "html";
+        file_content = read_file(std::string(endpoint) + "." + extension);
+    } else {
+        extension = file_path.extension().string();
+        extension.erase(0, 1); // remove leading dot
+        file_content = read_file(endpoint); 
+    }
+
+    if (!file_content.has_value()) {
+        return not_found_response;
+    }
+    return "HTTP/1.1 200 OK\r\n"
+           "Content-Type: " +
+           get_content_type(extension) +
+           "\r\n"
+           "Content-Length: " +
+           std::to_string(file_content.value().length()) +
+           "\r\n"
+           "Cache-Control: public, max-age=86400\r\n"
+           "\r\n" +
+           file_content.value();
 }
 
 } // namespace web
