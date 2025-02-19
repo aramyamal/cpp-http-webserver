@@ -1,5 +1,6 @@
 #include "client.h"
 #include <arpa/inet.h>
+#include <iostream>
 #include <string>
 
 //Simple client side tcp to test if server is working without browser

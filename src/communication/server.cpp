@@ -1,6 +1,8 @@
 #include "server.h"
 #include <cstring>
 #include <array>
+#include <iostream>
+#include <unistd.h>
 
 namespace web {
 

@@ -1,7 +1,7 @@
 #ifndef WEB_CLIENT_H
 #define WEB_CLIENT_H
 
-#include "../sockets/connecting_socket.h"
+#include "connecting_socket.h"
 
 namespace web {
 

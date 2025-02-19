@@ -1,6 +1,7 @@
 #include "client.h"
 #include <cstring>
 #include <array>
+#include <iostream>
 
 namespace web {
 

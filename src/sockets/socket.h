@@ -1,9 +1,10 @@
 #ifndef WEB_SOCKET_H
 #define WEB_SOCKET_H
 
-#include <iostream>
 #include <netinet/in.h>
+#include <stdexcept>
 #include <sys/socket.h>
+#include <string>
 
 namespace web {
 

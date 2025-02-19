@@ -1,8 +1,7 @@
 #ifndef WEB_SERVER_H
 #define WEB_SERVER_H
 
-#include "../sockets/listening_socket.h"
-#include <memory>
+#include "listening_socket.h"
 
 namespace web {
 
