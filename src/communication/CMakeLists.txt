@@ -11,6 +11,7 @@ add_library(communication
 target_link_libraries(communication
   PRIVATE
     sockets
+    utils
 )
 
 target_include_directories(communication

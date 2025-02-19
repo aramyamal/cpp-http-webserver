@@ -2,6 +2,7 @@
 #define WEB_HTTP_SERVER_H
 
 #include "server.h"
+#include "file_utils.h"
 #include <optional>
 
 namespace web {
@@ -16,7 +17,6 @@ class HTTPServer : public Server {
     void run(); // parent class has run(std::string response), potentially fix
 
   private:
-    std::optional<std::string> read_file(std::string_view path);
     std::optional<std::string> process_request(std::string_view request);
     std::optional<std::string> serve_http_response(std::string_view endpoint);
     std::string get_content_type(std::string &file_extension);

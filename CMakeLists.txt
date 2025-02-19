@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.28.3)
 
+# create compile_commands.json for lsp
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # prevent in-source builds
 if(PROJECT_SOURCE_DIR STREQUAL PROJECT_BINARY_DIR)
     message(FATAL_ERROR "Please make a build directory.")

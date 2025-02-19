@@ -1,3 +1,4 @@
+add_subdirectory(utils)
 add_subdirectory(sockets)
 add_subdirectory(communication)
 
@@ -9,4 +10,5 @@ target_link_libraries(${PROJECT_NAME}
   PRIVATE
     sockets
     communication
+    utils
 )
