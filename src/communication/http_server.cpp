@@ -78,10 +78,6 @@ std::string HTTPServer::get_content_type(std::string &file_extension) {
         {"pdf", "application/pdf"} // TODO: add more
     };
 
-    // transform to lower case
-    std::ranges::transform(file_extension, file_extension.begin(),
-                           [](unsigned char c) { return std::tolower(c); });
-
     auto mime_it = mime_types.find(file_extension);
     return mime_it != mime_types.end() ? mime_it->second
                                        : "application/octet-stream";
