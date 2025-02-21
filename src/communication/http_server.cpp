@@ -75,8 +75,7 @@ std::string HTTPServer::get_content_type(std::string &file_extension) {
         {"gif", "image/gif"},
         {"svg", "image/svg+xml"},
         {"ico", "image/x-icon"},
-        {"pdf", "application/pdf"}
-        // TODO: add more 
+        {"pdf", "application/pdf"} // TODO: add more
     };
 
     // transform to lower case
@@ -101,11 +100,14 @@ HTTPServer::serve_http_response(std::string_view endpoint) {
 
     if (!file_path.has_extension()) {
         extension = "html";
-        file_content = read_file(std::string(endpoint) + "." + extension);
+        file_content =
+            read_file_from_dir(std::string(endpoint) + "." + extension,
+                               public_dir_name, public_file_index);
     } else {
         extension = file_path.extension().string();
         extension.erase(0, 1); // remove leading dot
-        file_content = read_file(endpoint); 
+        file_content =
+            read_file_from_dir(endpoint, public_dir_name, public_file_index);
     }
 
     if (!file_content.has_value()) {
