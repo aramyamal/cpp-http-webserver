@@ -1,0 +1,28 @@
+body {
+    font-family: sysem-ui;
+    line-height: 1.6;
+    color: #857254;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #F8E1CD;
+}
+
+header {
+    background-color: #F6BFBF;
+    color: #8F788C;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+h1 {
+    margin-bottom: 0;
+}
+
+main {
+    background-color: #FBD4C0;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
