@@ -1,5 +1,4 @@
-#ifndef WEB_CONNECTING_SOCKET_H
-#define WEB_CONNECTING_SOCKET_H
+#pragma once
 
 #include "socket.h"
 #include <unistd.h>
@@ -26,5 +25,3 @@ class ConnectingSocket : public Socket {
 };
 
 } // namespace web
-
-#endif // WEB_CONNECTING_SOCKET_H

@@ -1,5 +1,4 @@
-#ifndef WEB_LISTENING_SOCKET_H
-#define WEB_LISTENING_SOCKET_H
+#pragma once
 
 #include "socket.h"
 
@@ -25,5 +24,3 @@ class ListeningSocket : public Socket {
 };
 
 } // namespace web
-
-#endif // WEB_LISTENING_SOCKET_H

@@ -1,5 +1,4 @@
-#ifndef WEB_CLIENT_H
-#define WEB_CLIENT_H
+#pragma once
 
 #include "connecting_socket.h"
 
@@ -19,5 +18,3 @@ class Client {
 };
 
 } // namespace web
-
-#endif // WEB_CLIENT_H

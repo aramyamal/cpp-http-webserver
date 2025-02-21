@@ -1,5 +1,4 @@
-#ifndef WEB_HTTP_SERVER_H
-#define WEB_HTTP_SERVER_H
+#pragma once
 
 #include "file_utils.h"
 #include "server.h"
@@ -49,5 +48,3 @@ class HTTPServer : public Server {
 };
 
 } // namespace web
-
-#endif // WEB_HTTP_SERVER_H

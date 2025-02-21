@@ -1,5 +1,4 @@
-#ifndef WEB_SOCKET_H
-#define WEB_SOCKET_H
+#pragma once
 
 #include <netinet/in.h>
 #include <stdexcept>
@@ -40,5 +39,3 @@ class Socket {
 };
 
 } // namespace web
-
-#endif // WEB_SOCKET_H
