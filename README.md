@@ -1,7 +1,7 @@
 # C++ HTTP Webserver
 
 ## Overview
-To get a better understanding of the HTTP protocol and TCP connections I reinvented the wheel and created this simple webserver utilizing the <sys/socket.h> C library on Linux and MacOS. Currently the webserver can only parse GET requests and serve files from a ```publc/``` folder inside the working directory it was run from to keep it secure.
+To get a better understanding of the HTTP protocol and TCP connections I reinvented the wheel and created this simple webserver utilizing the <sys/socket.h> C library on Linux and MacOS. Currently the webserver can only parse GET requests and serve files from a ```public/``` folder inside the working directory it was run from to keep it secure.
 It also handles unsupported requests by returning a *404 Not Found* response with a custom ```error_404.html``` page if placed inside ```public/```.
 
 I've also created a simple client to test the server functionality (also reinventing CURL). It can connect to an arbitrary adress and port, send user defined requests, and then display the subsequent server response.
